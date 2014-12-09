@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<meta name="description" content="VTDIRECT95" />
+<meta name="keywords" content="VTDIRECT, DIRECT, global optimization, parallel search" />
+<meta name="author" content="Jian He" />
+<link rel="stylesheet" type="text/css" href="body.css" title="VTDIRECT" media="screen,projection" />
+<title>VTDIRECT95</title>
+</head>
+
+<body>
+<div id="wrap">
+
+<div id="header">
+<p id="toplinks">Skip to: <a href="#content">Content</a> | <a href="#sidebar">Navigation</a> | <a href="#footer">Footer</a></p>
+<h1>VTDIRECT<span class="fade">95</span></h1>
+<p id="slogan">Serial and Parallel Codes for the Global Optimization Algorithm DIRECT</p>
+</div>
+
+<div id="content">
+<h2>About the Software</h2>
+<img src="images/sampling.jpg" width="216" height="211" alt="DIRECT in Action" class="left photo" />
+<p><strong><a href="#"><span class="green">VTDIRECT95</span></a></strong> is a Fortran 95 
+implementation of D. R. Jones' deterministic global optimization algorithm called DIRECT (<a href="#r5">Jones 
+et al. [1993]</a>, which is widely used in many multidisciplinary design optimization problems such as high speed civil
+transport aircraft design (<a href="#r1">Baker et al. [2000]</a>), pipeline design (<a href="#r3">
+Carter et al. [2001]</a>), aircraft routing (<a href="#r2">Bartholomew-Biggs et al. [2003]</a>), 
+surface optimization (<a href="#r8">Zhu et al. [2002]</a>), wireless communication transmitter 
+placement (<a href="#r4">He et al. [2004]</a>), molecular genetic mapping (<a href="#r6">Ljungberg et al. [2004]</a>), 
+and cell cycle modeling (<a href="#r9">Zwolak et al. [2005]</a> and <a href="#r7">Panning et al. [2008]</a>).  
+The package includes both a serial code and a data-distributed massively parallel code for different 
+problem scales and optimization (exploration vs. exploitation) goals. Dynamic data
+structures are used to organize local data, handle unpredictable memory
+requirements, reduce the memory usage, and share the data across multiple
+processors. The parallel code employs a multilevel functional and data
+parallelism to boost concurrency and mitigate the data dependency, thus
+improving the load balancing and scalability. In addition, checkpointing
+features are integrated into both versions to provide fault tolerance and
+hot restarts. Using several benchmark functions and real-world
+applications, the software is evaluated on different systems in terms of
+optimization effectiveness, data structure efficiency, parallel performance,
+and checkpointing overhead.
+</p>
+<p class="readmore"><a href="impl.html">About the Implementation</a> &raquo;</p>
+<h2>References</h2>
+<a id="r1">
+<p>[1] Baker, C.A., Watson, L.T., Grossman, B., Haftka, R.T., and Mason, W.H. 2000. Parallel
+global aircraft configuration design space exploration. High Performance Computing Symposium 2000, A. Tentner (Ed.), Soc. for Computer Simulation Internat, San Diego, CA, pages 101-106.</p>
+</a>
+<a id="r2">
+<p>[2] Bartholomew-Biggs, M.C., Parkhurst, S.C., and Wilson, S.P. 2003. Global optimization
+approaches to an aircraft routing problem. EUR J. Operational Research 146, pages 417-431.</p>
+</a>
+<a id="r3">
+<p>[3] Carter, R.G., Gablonsky, J.M., Patrick, A., Kelly, C.T., and Eslinger, O.J. 2001. Algorithms for noisy problems in gas transmission pipeline optimization. Optimization and engineering
+2, pages 139-157.</p>
+</a>
+<a id="r4">
+<p>[4] He, J., Verstak, A., Watson, L.T., Stinson, C.A., Ramakrishnan, N., Shaffer, C.A., Rappaport, T.S., Anderson, C.R., Bae, K., Jiang, J., and Tranter, W.H. 2004. Globally
+optimal transmitter placement for indoor wireless communication systems. IEEE Transactions
+on Wireless Communications 3, pages 1906-1911.</p>
+</a>
+<a id="r5">
+<p>[5] Jones, D.R., Pertunen, C.D., and Stuckman, B.E. 1993. Lipschitzian optimization without
+the Lipschitz constant. J. Optimization Theory and Applications 79, pages 157-181.</p>
+</a>
+<a id="r6">
+<p>[6] Ljungberg, K., Holmgren, S., and Carlborg, &#214;. 2004. Simultaneous search for multiple
+QTL using the global optimization algorithm DIRECT. Bioinformatics (Oxford, England) 20,
+pages 1887-1895.</p>
+</a>
+<a id="r7">
+<p>[7] Panning, T.D., Watson, L.T., Allen, N.A., Chen, K.C., Shaffer, C.A., and Tyson, J.J.
+2008. Deterministic parallel global parameter estimation for a model of the budding yeast cell cycle.
+J. of Global Optimization 4, pages 719-738.</p>
+</a>
+<a id="r8">
+<p>[8] Zhu, H. and Bogy, D.B. 2002. DIRECT algorithm and its application to slider airbearing
+surface optimization. IEEE Transactions on Magnetics 38, pages 2168-2170.</p>
+</a>
+<a id="r9">
+<p>[9] Zwolak, J.W., Tyson, J.J., and Watson, L.T. 2005. Globally optimised parameters for a
+model of mitotic control in frog egg extracts. IEE Systems Biology 152, pages 81-92.</p>
+</a>
+</div>
+
+<div id="sidebar">
+<h2>Welcome</h2>
+<p>If you have any suggestions or questions, 
+please contact the <a href="aboutus.html">authors</a>
+at {jihe, ltw} at cs dot vt dot edu and masha at scl dot ameslab dot gov. 
+Thank you!
+</p>
+
+<h2>Navigate</h2>
+<ul>
+<li><a href="index.html">Software</a>
+<li><a href="impl.html">Implementation</a>
+<li><a href="download.html">Download</a>
+<li><a href="usergd.html">User Guide</a></li>
+<li><a href="pub.html">Publications</a></li>
+<!-- <li><a href="#">Tutorials</a></li>
+-->
+</ul>
+
+<h2>News</h2>
+<ul>
+	<li><strong>August 11, 2014</strong><br />
+	The code has been updated.
+	<!-- <li><strong>June 4, 2011</strong><br />
+	<a href="patches/patch_mpich2-1.2.1p1">Patch for MPICH2-1.2</a>
+	-->
+	<li><strong>June 26, 2008</strong><br />
+	The code has been updated.
+</ul>
+
+
+<h2>Applications</h2>
+<ul>
+	<li><strong>Systems Biology:</strong>
+	<li><a href="http://jigcell.cs.vt.edu/" target=view_window>JigCell</a></li>
+	</li>
+	<li><strong>Aerospace Engineering:</strong>
+<li><a href="http://www.dept.aoe.vt.edu/research/groups/afrl/" target=view_window>Micro Air Vehicles</a></li>
+</li>
+<li><strong>Ab-initio nuclear physics:</strong>
+<li><a href="http://nuclear.physics.iastate.edu" target=view_window>MFDn</a></li>
+</ul>
+</div>
+
+<div id="footer">
+	<p> <b>Last Modified: </b> 08/11/2014 <!--<? $filename = "index.html";
+	echo date( "m/d/Y", filemtime( $filename )); ?> -->
+<p><a href="aboutus.html">About the authors</a> | <a href="#sidebar">Navigation</a> | <a href="#header">Back to top</a><br />
+&copy; 2008 <a href="#">VTDIRECT95</a></p>
+</div>
+
+</div>
+</body>
+</html>
