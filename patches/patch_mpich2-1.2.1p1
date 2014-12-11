@@ -1,0 +1,33 @@
+--- pVTdirect.f95	2011-06-04 14:53:05.000000000 -0500
++++ pVTdirect.f95_mpich2-1.2.1p1	2011-06-04 14:50:49.000000000 -0500
+@@ -986,9 +986,9 @@
+   ! from all masters. Then, it collects local convex hull boxes from
+   ! 'lbuffer' on each master, save them in its 'gbuffer', and finds the
+   ! global convex boxes.
+-  CALL MPI_GATHER(lc_convex(mygid+1), 1, MPI_INTEGER, lc_convex(mygid+1), &
+-                  1, MPI_INTEGER, 0, myComm, ierr)
+   IF (mygid == 0) THEN
++    CALL MPI_GATHER(MPI_IN_PLACE, 1, MPI_INTEGER, lc_convex(mygid+1), &
++                  1, MPI_INTEGER, 0, myComm, ierr)
+     IF (gbuffer_len < SUM(lc_convex(:))*box_size) THEN
+       ! The global buffer 'gbuffer' is not big enough to hold all local
+       ! convex hull boxes. Reallocate 'gbuffer'.
+@@ -1003,6 +1003,9 @@
+     DO i = 2, N_MASTER_I
+       displs(i) = displs(i-1) + lc_convex(i-1)*box_size*size_r8
+     END DO
++  ELSE   
++    CALL MPI_GATHER(lc_convex(mygid+1), 1, MPI_INTEGER, lc_convex(mygid+1), &
++                  1, MPI_INTEGER, 0, myComm, ierr)
+   END IF
+   ! The root subdomain master gathers the boxes. Compute the amount of
+   ! data in unit of MPI_BYTE for gathering in lc_convex(:).
+@@ -4333,7 +4336,7 @@
+ IF (.NOT. m_converted) THEN
+   ! Notify others that it has passed the initialization.
+   array_masters(:) = 1
+-  CALL MPI_ALLTOALL(array_masters, 1, MPI_INTEGER, array_masters, 1, &
++  CALL MPI_ALLTOALL(array_masters, 1, MPI_INTEGER, MPI_IN_PLACE, 1, &
+                     MPI_INTEGER, MPI_COMM_WORLD, ierr)
+   IF (SUM(array_masters) /= world_size) THEN
+     iflag = DMPI_ERROR + 7
