@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+<meta name="description" content="VTDIRECT95" />
+<meta name="keywords" content="VTDIRECT, DIRECT, global optimization, parallel search" />
+<meta name="author" content="Jian He" />
+<link rel="stylesheet" type="text/css" href="body.css" title="VTDIRECT" media="screen,projection" />
+<title>VTDIRECT95: Implementation</title>
+</head>
+
+<body>
+<div id="wrap">
+
+<div id="header">
+<p id="toplinks">Skip to: <a href="#content">Content</a> | <a href="#sidebar">Navigation</a> | <a href="#footer">Footer</a></p>
+<h1><a href="index.html">VTDIRECT<span class="fade">95</span></a></h1>
+<p id="slogan">Serial and Parallel Codes for the Global Optimization Algorithm DIRECT</p>
+</div>
+
+<div id="content">
+<h2>About the Implementation</h2>
+<img src="images/direct.jpg" width="132" height="124" alt="direct steps" class="left photo" />
+<p>The design issues addressed in <strong><a href="index.html"><span class="green">VTDIRECT95</span></a></strong>
+include algorithm modifications, data structures, parallel schemes, and error handling. 
+Advanced features (derived data types, pointers, dynamic memory allocation, etc.) supplied by 
+FORTRAN 95 were used to design dynamic data structures that flexibly organize the data on a 
+single machine, effectively reduce the local data storage, and efficiently share the data 
+across multiple processors. Moreover, a multilevel functional and data parallelism is 
+proposed to produce multiple starting points, mitigate the data dependency, and improve 
+the load balancing. In addition, both the serial and parallel programs are equipped with 
+checkpointing features to provide fault tolerance to power outage or hardware/memory failures,
+and enable hot restarts for large runs.
+</p>
+
+<p><strong><span class="green">Algorithm Modifications:</span></strong> DIRECT's behavior in 
+multiple dimensions can be viewed as taking steps in potentially optimal directions within the entire 
+design space. The potentially optimal directions are determined through evaluating the objective function 
+at center points of the subdivided regions. The search is carried out through three essential operations: 
+region selection (SELECTION), point sampling (SAMPLING), and space division (DIVISION). A few 
+modifications were made in VTDIRECT95 to meet the needs of various applications and improve the 
+performance on large scale parallel systems <a href="pub.html#p13">[13]</a>
+<a href="pub.html#p14">[14]</a>.</p>
+
+<p><strong><span class="green">Data Structures:</span></strong> 
+One of the biggest design challenges of DIRECT is to break the "curse of dimensionality" first noted by its creators. The approach here is to design dynamic data structures
+that are easily extensible to store continuously generated data from point sampling/space
+division and to share the data storage among multiple processors. The original design of
+the data structures is reported in <a href="pub.html#p2">[2]</a> and <a href="pub.html#p13">[13]</a>, 
+documented for the serial implementation previously named as VTDIRECT. The design used in VTDIRECT95 
+has been improved by adopting a min-heap data structure and a memory reduction technique 
+<a href="pub.html#p1">[1]</a><a href="pub.html#p14">[14]</a>.
+
+<p><strong><span class="green">Parallel Schemes:</span></strong> The functional flow of DIRECT 
+exposes its inherent sequential nature. The data dependency among the algorithm steps 
+suggests a multilevel parallelism for SELECTION and SAMPLING. The parallel scheme for SELECTION 
+concentrates on distributing data among multiple masters to share the memory burden. 
+The data-distributed scheme naturally parallelizes the convex hull computation by merging 
+multiple local convex hulls to a global one. Differently for SAMPLING, a functional parallelism 
+distributes function evaluation tasks to workers. Nevertheless, function evaluations should be 
+computed locally on masters if the evaluation cost is cheaper than the communication round 
+trip cost. This is called the "horizontal scheme" (multiple masters without workers) to 
+contrast with the "vertical scheme" (one master and multiple workers) <a href="pub.html#p10">[10]</a>. </p>
+
+<p><strong><span class="green">Error Handling:</span></strong> Program robustness requires error 
+handling that anticipates, detects, and resolves errors at run time. The highest level of error 
+handling capability is fault tolerance that attempts to recover from hardware or operating system 
+failures if possible, and if not, terminates the program gracefully. The tradeoff for fault tolerance 
+is increased program complexity. The errors encountered in VTDIRECT95 come from several sources, 
+including input parameters, memory allocation, files, MPI library, and hardware/power failure, etc. 
+The error handling strategies here aim at balancing potential computation loss with implementation 
+complexity. Therefore, simple fault tolerance features are considered only for recovering from 
+some of the input parameter errors. The remaining errors are regarded as fatal errors, which are
+handled by checkpointing to save the computation as much as possible for later recovery 
+<a href="pub.html#p1">[1]</a><a href="pub.html#p14">[14]</a>.</p>
+
+<p class="readmore"><a href="download.html">Download the Software</a> &raquo;</p>
+</div>
+
+<div id="sidebar">
+<h2>Welcome!</h2>
+<p>If you have any suggestions or questions, 
+please contact the <a href="aboutus.html">authors</a>
+at {jihe, ltw} at cs dot vt dot edu and masha at scl dot ameslab dot gov. 
+Thank you!
+</p>
+
+<h2>Navigate</h2>
+<ul>
+<li><a href="index.html">Software</a>
+<li><a href="impl.html">Implementation</a>
+<li><a href="download.html">Download</a>
+<li><a href="usergd.html">User Guide</a></li>
+<li><a href="pub.html">Publications</a></li>
+<!-- <li><a href="#">Tutorials</a></li>
+-->
+</ul>
+
+<h2>News</h2>
+<ul>
+	<li><strong>August 11, 2014</strong><br />
+	The code has been updated.
+	<!-- <li><strong>June 4, 2011</strong><br />
+	<a href="patches/patch_mpich2-1.2.1p1">Patch for MPICH2-1.2</a>
+	-->
+	<li><strong>June 26, 2008</strong><br />
+	The code has been updated.
+</ul>
+
+<h2>Applications</h2>
+<ul>
+	<li><strong>Systems Biology:</strong>
+	<li><a href="http://jigcell.cs.vt.edu/" target=view_tab>JigCell</a></li>
+	</li>
+	<li><strong>Aerospace Engineering:</strong>
+<li><a href="http://www.dept.aoe.vt.edu/research/groups/afrl/" target=view_tab>Micro Air Vehicles</a></li>
+</li>
+<li><strong>Ab-initio nuclear physics:</strong>
+<li><a href="http://nuclear.physics.iastate.edu" target=view_tab>MFDn</a></li>
+</ul>
+</div>
+
+<div id="footer">
+	<p> <b>Last Modified: </b><? $filename = "index.html";
+	echo date( "m/d/Y", filemtime( $filename )); ?>
+<p><a href="aboutus.html">About the authors</a> | <a href="#sidebar">Navigation</a> | <a href="#header">Back to top</a><br />
+&copy; 2008 <a href="#">VTDIRECT95</a></p>
+</div>
+
+</div>
+</body>
+</html>
