@@ -7,7 +7,7 @@ VTDIRECT95 is a Fortran 95 implementation of D. R. Jones' deterministic global o
 ## Organization and Usage
 
 The directory ``src`` contains the original ACM TOMS code, with the modifications
-described in ``ACM TOMS 41(3):22`` (full citation information below).
+described in ``ACM TOMS 41(3):22`` (full citation information is below).
 
 The additional ``README`` and ``UserGuide.pdf`` files in the ``src`` directory
 describe the directory structure, installation, testing, and usage information.
@@ -55,6 +55,7 @@ For further information, please contact:
 
 Masha Sosonkina,  
 Dept. Computational Modeling and Simulation Engineering  
+Old Dominion University
 Norfolk, VA 23529  
 msosonki@odu.edu  
 
